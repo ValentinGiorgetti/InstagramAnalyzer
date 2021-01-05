@@ -1,4 +1,4 @@
-# InstagramAnalyzer
+# InstagramAnalyzer  <img src="https://i.imgur.com/VhJ2Hcr.png" width="40" style="vertical-align:middle">
 
 InstagramAnalyzer es una aplicación desarrollada en Python que permite: 
 
