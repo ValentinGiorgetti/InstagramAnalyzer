@@ -18,3 +18,7 @@ Cada vez que se actualicen los seguidores o seguidos de la cuenta se creará una
 ~ Versión de Python utilizada: 3.6.8
 
 ~ Versión de instaloader utilizada: 4.5.4
+
+Imagen del menú
+
+![](https://i.imgur.com/nUb9FzB.png)
