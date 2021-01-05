@@ -90,12 +90,8 @@ def chequeador(perfil):
 
     """ Muestra los usuarios seguidos que no siguen al usuario """
 
-    actualizar_seguidores(perfil)
+    actualizar_seguidos_y_seguidores(perfil)
     seguidores = leer_usuarios("seguidores.txt")
-    
-    print("\n")
-    
-    actualizar_seguidos(perfil)
     seguidos = leer_usuarios("seguidos.txt")
     
     lista = []
@@ -124,8 +120,8 @@ def cantidades(perfil):
 
     """ Muestra la cantidad de seguidores y seguidos """
 
+    actualizar_seguidos_y_seguidores(perfil)
     seguidores = leer_usuarios("seguidores.txt")
-      
     seguidos = leer_usuarios("seguidos.txt")
       
     print(f"Cantidad de seguidores: {len(seguidores)}\nCantidad de seguidos: {len(seguidos)}.")
