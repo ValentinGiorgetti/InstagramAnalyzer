@@ -15,6 +15,6 @@ Los datos de inicio de sesión (usuario y contraseña) únicamente se ingresan a
 
 Cada vez que se actualicen los seguidores o seguidos de la cuenta se creará una copia del archivo anterior en la carpeta "copia_seguidores" o "copia_seguidos" respectivamente. Esos archivos consisten en una lista de los nombres de usuario que siguen a la cuenta, o a los que la cuenta sigue.
 
-_~ Versión de Python utilizada: 3.6.8_
+*~ Versión de Python utilizada: 3.6.8*
 
-_~ Versión de instaloader utilizada: 4.5.4_
+*~ Versión de instaloader utilizada: 4.5.4*
