@@ -13,12 +13,16 @@ Para usar la aplicación se debe ejecutar "InstagramAnalyzer.exe", luego se debe
 
 Los datos de inicio de sesión (usuario y contraseña) únicamente se ingresan al iniciar la aplicación por primera vez, luego serán recordados para un uso posterior. Estos datos se almacenan en el archivo "cuenta.txt", donde la primer línea se corresponde con el nombre de usuario y la segunda línea se corresponde con la contraseña. Si se quiere utilizar la aplicación con otra cuenta, se pueden modificar los datos de ese archivo.
 
-Cada vez que se actualicen los seguidores o seguidos de la cuenta se creará una copia del archivo anterior en la carpeta "copia_seguidores" o "copia_seguidos" respectivamente. Esos archivos consisten en una lista de los nombres de usuario que siguen a la cuenta, o a los que la cuenta sigue.
+Cada vez que se actualicen los seguidores o seguidos de la cuenta se creará una copia del archivo anterior en la carpeta "copia_seguidores" o "copia_seguidos" respectivamente. Esos archivos consisten en una lista de los nombres de usuario de los seguidores y los seguidos por la cuenta.
 
 ~ Versión de Python utilizada: 3.6.8
 
 ~ Versión de instaloader utilizada: 4.5.4
 
-Imagen del menú
+Algunas imágenes
 
-![](https://i.imgur.com/nUb9FzB.png)
+![](https://i.imgur.com/evz2cDc.png)ㅤㅤㅤ![](https://i.imgur.com/3cIv8IM.png)
+
+![](https://i.imgur.com/QuhYz6B.png)ㅤㅤㅤㅤ![](https://i.imgur.com/noG8Dpp.png)
+
+ㅤㅤㅤㅤ![](https://i.imgur.com/TfiCyWt.png)ㅤㅤㅤㅤㅤ![](https://i.imgur.com/gTjMsh1.png)
