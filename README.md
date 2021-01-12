@@ -19,6 +19,8 @@ Cada vez que se actualicen los seguidores o seguidos de la cuenta se creará una
 
 ~ Versión de instaloader utilizada: 4.5.4
 
-Algunas imágenes
+#### Algunas imágenes
 
-![](https://i.imgur.com/ihx4bps.png)
+<p align="center">
+  <img src="https://i.imgur.com/ihx4bps.png">
+</p>
