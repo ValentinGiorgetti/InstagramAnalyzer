@@ -21,8 +21,4 @@ Cada vez que se actualicen los seguidores o seguidos de la cuenta se creará una
 
 Algunas imágenes
 
-![](https://i.imgur.com/evz2cDc.png)ㅤㅤㅤ![](https://i.imgur.com/3cIv8IM.png)
-
-![](https://i.imgur.com/QuhYz6B.png)ㅤㅤㅤㅤ![](https://i.imgur.com/noG8Dpp.png)
-
-ㅤㅤㅤㅤ![](https://i.imgur.com/TfiCyWt.png)ㅤㅤㅤㅤㅤ![](https://i.imgur.com/gTjMsh1.png)
+![](https://i.imgur.com/ihx4bps.png)
