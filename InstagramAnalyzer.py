@@ -34,7 +34,7 @@ error = ""
 cantidad = 0
 
 
-def finalizar():
+def finalizar_funcion():
 
     """ Usado para la comunicación entre funciones de diferentes hilos """
 
@@ -55,7 +55,7 @@ def cargar_perfil(usuario, contrasenia):
         
         perfil = instaloader.Profile.from_username(L.context, usuario)
 
-        finalizar()
+        finalizar_funcion()
     
     except:
 
@@ -93,92 +93,93 @@ def actualizar_gif(window):
     
     finalizo = False
 
+
+def actualizar_seguidos_helper(finalizar = True):
+  
+    """ Crea una copia de los seguidos y los actualiza """
     
-def actualizar_seguidos(window, mostrar_mensaje = True):
+    global cantidad, error
+
+    try:
+
+        shutil.copy2(join("componentes", "seguidos.txt"), join("componentes", "copia_seguidos", "copia" + str(len(os.listdir(join("componentes", "copia_seguidos"))) + 1) + ".txt"))
+        
+        seguidos = [seguido.username for seguido in perfil.get_followees()]
+
+        cantidad = len(seguidos)
+
+        with open(join("componentes", "seguidos.txt"), "w", encoding = "UTF-8") as f:
+            f.write('\n'.join(seguidos))
+    
+    except:
+
+        error = "Ocurrió un error al actualizar los seguidos\n"
+
+    if finalizar:
+        finalizar_funcion()
+
+    
+def actualizar_seguidos(window, mostrar_cantidad = False):
 
     """ Actualiza los usuarios seguidos """
 
-    def helper():
-    
-        global cantidad, error
-
-        try:
-
-            shutil.copy2(join("componentes", "seguidos.txt"), join("componentes", "copia_seguidos", "copia" + str(len(os.listdir(join("componentes", "copia_seguidos"))) + 1) + ".txt"))
-            
-            seguidos = [seguido.username for seguido in perfil.get_followees()]
-
-            cantidad = len(seguidos)
-
-            with open(join("componentes", "seguidos.txt"), "w", encoding = "UTF-8") as f:
-                f.write('\n'.join(seguidos))
+    window["texto"].Update("Actualizando los seguidos...", visible = True)
         
-        except:
-
-            error = "Ocurrió un error al actualizar los seguidos\n"
-
-        finalizar()
-
-    if mostrar_mensaje:
-        window["texto"].Update("Actualizando los seguidos...", visible = True)
-        
-    Thread(target = helper).start()
+    Thread(target = actualizar_seguidos_helper).start()
     
     actualizar_gif(window)
     
-    if mostrar_mensaje:    
+    if mostrar_cantidad:
         sg.Popup(f"Cantidad de seguidos: {cantidad}ㅤㅤㅤ\n", **parametros_popup)
         
+
+def actualizar_seguidores_helper(finalizar = True):
+  
+    """ Crea una copia de los seguidores y los actualiza """
+    
+    global cantidad, error
+
+    try:
+
+        shutil.copy2(join("componentes", "seguidores.txt"), join("componentes", "copia_seguidores", "copia" + str(len(os.listdir(join("componentes", "copia_seguidores"))) + 1) + ".txt"))
         
-def actualizar_seguidores(window, mostrar_mensaje = True):
+        seguidores = [seguidor.username for seguidor in perfil.get_followers()]
+
+        cantidad = len(seguidores)
+
+        with open(join("componentes", "seguidores.txt"), "w", encoding = "UTF-8") as f:
+            f.write('\n'.join(seguidores))
+
+    except:
+
+        error = "Ocurrió un error al actualizar los seguidores\n"
+        
+    if finalizar:
+        finalizar_funcion()
+
+
+def actualizar_seguidores(window, mostrar_cantidad = False):
 
     """ Actualiza los usuarios seguidores """
 
-    def helper():
-    
-        global cantidad, error
-
-        try:
-
-            shutil.copy2(join("componentes", "seguidores.txt"), join("componentes", "copia_seguidores", "copia" + str(len(os.listdir(join("componentes", "copia_seguidores"))) + 1) + ".txt"))
-            
-            seguidores = [seguidor.username for seguidor in perfil.get_followers()]
-
-            cantidad = len(seguidores)
-
-            with open(join("componentes", "seguidores.txt"), "w", encoding = "UTF-8") as f:
-                f.write('\n'.join(seguidores))
-
-        except:
-
-            error = "Ocurrió un error al actualizar los seguidores\n"
-         
-        finalizar()
-
-    if mostrar_mensaje:
-        window["texto"].Update("Actualizando los seguidores...", visible = True)
+    window["texto"].Update("Actualizando los seguidores...", visible = True)
         
-    Thread(target = helper).start()
+    Thread(target = actualizar_seguidores_helper).start()
     
     actualizar_gif(window)
     
-    if mostrar_mensaje:    
+    if mostrar_cantidad:
         sg.Popup(f"Cantidad de seguidores: {cantidad}ㅤㅤㅤ\n", **parametros_popup)
     
     
-def actualizar_seguidos_y_seguidores(window, mostrar_mensaje = False):
+def actualizar_seguidos_y_seguidores(window):
 
     """ Actualiza los usuarios seguidos y seguidores del usuario """
     
-    if mostrar_mensaje:
-        window["texto"].Update("Actualizando los seguidos y seguidores...", visible = True)
-        actualizar_seguidos(window, False)
-        
-        window["texto"].Update("Actualizando los seguidos y seguidores...", visible = True)
-        actualizar_seguidores(window, False)
-    else:
-        actualizar_seguidos(window)
-        actualizar_seguidores(window)
+    window["texto"].Update("Actualizando los seguidos y seguidores...", visible = True)
+    Thread(target = actualizar_seguidores_helper, args = (False,)).start()
+    Thread(target = actualizar_seguidos_helper).start()
+    actualizar_gif(window)
     
 
 def mostrar_multiline(texto, lista):
@@ -204,7 +205,7 @@ def not_followed_back(window):
 
     """ Muestra los usuarios seguidos que no siguen al usuario """
     
-    actualizar_seguidos_y_seguidores(window, True)
+    actualizar_seguidos_y_seguidores(window)
     seguidores = leer_usuarios(join("componentes", "seguidores.txt"))
     seguidos = leer_usuarios(join("componentes", "seguidos.txt"))
 
@@ -231,8 +232,7 @@ def unfollowers(window):
     
     seguidores_antiguos = leer_usuarios(join("componentes", "seguidores.txt"))
     
-    window["texto"].Update("Actualizando los seguidores...", visible = True)
-    actualizar_seguidores(window, False)
+    actualizar_seguidores(window)
     seguidores = leer_usuarios(join("componentes", "seguidores.txt"))
       
     lista = "\n".join(set(seguidores_antiguos).difference(set(seguidores)))
@@ -381,8 +381,8 @@ def main():
     ventana = crear_ventana_menu(usuario)
     
     opciones = {"actualizar_ambos" : actualizar_seguidos_y_seguidores, 
-                "actualizar_seguidos" : actualizar_seguidos, 
-                "actualizar_seguidores" : actualizar_seguidores, 
+                "actualizar_seguidos" : lambda w : actualizar_seguidos(w, True), 
+                "actualizar_seguidores" : lambda w : actualizar_seguidores(w, True), 
                 "not_followed_back" : not_followed_back, 
                 "unfollowers" : unfollowers,
                 "github" : lambda foo : abrir_web("https://github.com/ValentinGiorgetti")}
