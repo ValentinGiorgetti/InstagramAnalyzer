@@ -392,7 +392,8 @@ def main():
         if event in (None, "salir"):
             break
         opciones[event](ventana)
-        
+    
+    ventana.Close()
     
 if __name__ == "__main__":
     main()
