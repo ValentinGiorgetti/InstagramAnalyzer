@@ -1,4 +1,5 @@
 import instaloader, os, shutil, PySimpleGUI as sg
+from sys import exit
 from webbrowser import open as abrir_web
 from os.path import join, isdir, isfile
 from threading import Thread
