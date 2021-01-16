@@ -392,6 +392,7 @@ def main():
         opciones[event](ventana)
     
     ventana.Close()
+
     
 if __name__ == "__main__":
     main()
