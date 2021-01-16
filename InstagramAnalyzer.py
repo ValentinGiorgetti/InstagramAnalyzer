@@ -77,25 +77,26 @@ def leer_usuarios(nombre_archivo):
     return lista_usuarios
     
 
-def actualizar_gif(window):
+def actualizar_gif(window, cantidad_procesos = 1):
 
     """ Actualiza el gif de espera de la ventana """
 
     global finalizo, error
 
-    while not finalizo:
+    while cantidad_procesos:
         window["gif"].UpdateAnimation(gif, time_between_frames = 100)
         window.Refresh()
         if error:
             sg.Popup(error, **cartel)
             exit()
+        if finalizo:
+            cantidad_procesos -= 1
+            finalizo = False
     window["gif"].Update(transparente)
     window["texto"].Update(visible = False)
-    
-    finalizo = False
 
 
-def actualizar_seguidos_helper(finalizar = True):
+def actualizar_seguidos_helper():
   
     """ Crea una copia de los seguidos y los actualiza """
     
@@ -116,8 +117,7 @@ def actualizar_seguidos_helper(finalizar = True):
 
         error = "Ocurrió un error al actualizar los seguidos\n"
 
-    if finalizar:
-        finalizar_funcion()
+    finalizar_funcion()
 
     
 def actualizar_seguidos(window, mostrar_cantidad = False):
@@ -125,16 +125,15 @@ def actualizar_seguidos(window, mostrar_cantidad = False):
     """ Actualiza los usuarios seguidos """
 
     window["texto"].Update("Actualizando los seguidos...", visible = True)
-        
-    Thread(target = actualizar_seguidos_helper).start()
     
+    Thread(target = actualizar_seguidos_helper).start()
     actualizar_gif(window)
     
     if mostrar_cantidad:
         sg.Popup(f"Cantidad de seguidos: {cantidad}ㅤㅤㅤ\n", **parametros_popup)
         
 
-def actualizar_seguidores_helper(finalizar = True):
+def actualizar_seguidores_helper():
   
     """ Crea una copia de los seguidores y los actualiza """
     
@@ -154,9 +153,8 @@ def actualizar_seguidores_helper(finalizar = True):
     except:
 
         error = "Ocurrió un error al actualizar los seguidores\n"
-        
-    if finalizar:
-        finalizar_funcion()
+    
+    finalizar_funcion()
 
 
 def actualizar_seguidores(window, mostrar_cantidad = False):
@@ -164,9 +162,8 @@ def actualizar_seguidores(window, mostrar_cantidad = False):
     """ Actualiza los usuarios seguidores """
 
     window["texto"].Update("Actualizando los seguidores...", visible = True)
-        
-    Thread(target = actualizar_seguidores_helper).start()
     
+    Thread(target = actualizar_seguidores_helper).start()
     actualizar_gif(window)
     
     if mostrar_cantidad:
@@ -178,9 +175,10 @@ def actualizar_seguidos_y_seguidores(window):
     """ Actualiza los usuarios seguidos y seguidores del usuario """
     
     window["texto"].Update("Actualizando los seguidos y seguidores...", visible = True)
-    Thread(target = actualizar_seguidores_helper, args = (False,)).start()
+
+    Thread(target = actualizar_seguidores_helper).start()
     Thread(target = actualizar_seguidos_helper).start()
-    actualizar_gif(window)
+    actualizar_gif(window, 2)
     
 
 def mostrar_multiline(texto, lista):
@@ -338,12 +336,11 @@ def iniciar_sesion():
               [sg.Text(f'Iniciando sesión de "@{usuario}"...', key = "texto"), sg.Image(gif, key = "gif")],
               [sg.Text()]]
 
-    window = sg.Window(" InstagramAnalyzer | Iniciando sesión", layout, **parametros_ventana)
+    window = sg.Window(" InstagramAnalyzer | Iniciando sesión", layout, disable_close = True, **parametros_ventana)
     
     Thread(target = cargar_perfil, args = (usuario, contrasenia)).start()
-    
     actualizar_gif(window)
-        
+
     window.Close()
         
     return usuario
