@@ -1,3 +1,11 @@
+"""
+Autor: Giorgetti Valentín
+Licencia: MIT License
+
+Módulo principal del programa.
+"""
+
+
 import instaloader, os, shutil, PySimpleGUI as sg
 from sys import exit
 from webbrowser import open as abrir_web
